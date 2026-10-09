@@ -26,6 +26,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $age = null;
 
     #[ORM\Column(length: 255, nullable: false)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $password = null;
 
     #[ORM\Column(type: 'json')]
@@ -62,6 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(?string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email; 
 
         return $this;
     }
@@ -105,6 +120,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email ?? '';
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getRoles(): array
