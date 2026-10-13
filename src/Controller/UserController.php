@@ -31,14 +31,14 @@ final class UserController extends AbstractController
         ]);
     }
 
-    // #[Route('/{id}', name: 'show_utilisateur')]
-    // public function OneValue(User $user): Response
-    // {
-    //     return $this->render('utilisateur/index.html.twig', [
-    //         'user' => $user,
-    //         'controller_name' => 'UtilisateurController',
-    //     ]);
-    // }
+    #[Route('/show/{id}', name: 'show_utilisateur', methods:['GET'])]
+    public function OneValue(?User $user): Response
+    {
+        return $this->render('utilisateur/index.html.twig', [
+            'users' => $user,
+            'controller_name' => 'UtilisateurController',
+        ]);
+    }
 
     public function form(
         User $user,

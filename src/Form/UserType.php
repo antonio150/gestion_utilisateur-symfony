@@ -48,12 +48,7 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ])
-            ->add('created_at', null, [
-                'widget' => 'single_text'
-            ])
-            ->add('updated_at', null, [
-                'widget' => 'single_text'
-            ])
+          
         ;
     }
 
