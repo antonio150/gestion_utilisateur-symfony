@@ -20,7 +20,7 @@ final class UserController extends AbstractController
     ) {
     }
 
-    #[Route('/', name: 'liste_utilisateur')]
+    #[Route('/', name: 'liste_utilisateur', methods: ['GET'])]
     public function index(): Response
     {
         $users = $this->entityManager->getRepository(User::class)->findAll();
@@ -87,5 +87,18 @@ final class UserController extends AbstractController
     public function update(User $user, Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher): Response
     {
         return $this->form($user,$request, $em, $passwordHasher);
+    }
+
+    #[Route('/delete/{id}', name:'delete_user', methods:['DELETE','GET'])]
+    public function delete(User $user, Request $request, EntityManagerInterface $em): Response
+    {
+        if (!$this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_utilisateur');
     }
 }
