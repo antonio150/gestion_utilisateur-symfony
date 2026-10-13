@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,84 +20,72 @@ final class UserController extends AbstractController
     ) {
     }
 
-    #[Route('', name: 'app_utilisateur')]
+    #[Route('/', name: 'liste_utilisateur')]
     public function index(): Response
     {
         $users = $this->entityManager->getRepository(User::class)->findAll();
-        
-
+      
         return $this->render('utilisateur/index.html.twig', [
             'users' => $users,
+            'controller_name' => 'UtilisateurController',
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateur')]
-    public function OneValue(User $user): Response
+    // #[Route('/{id}', name: 'show_utilisateur')]
+    // public function OneValue(User $user): Response
+    // {
+    //     return $this->render('utilisateur/index.html.twig', [
+    //         'user' => $user,
+    //         'controller_name' => 'UtilisateurController',
+    //     ]);
+    // }
+
+    public function form(
+        User $user,
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $passwordHasher): Response
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'user' => $user,
+        $isCreation = $user->getId() === null;
+        $form = $this->createForm(UserType::class, $user, [
+            'is_creation' => $isCreation,
+        ]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+            {
+                $plainPassword = $form->get('password')->getData();
+                if($plainPassword !== null) {
+                    $user->setPassword(
+                        $passwordHasher->hashPassword($user, $plainPassword)
+                    );
+                }
+                $now = new \DateTimeImmutable();
+                $user->setCreatedAt($now);
+                $user->setUpdatedAt($now);
+
+                $em->persist($user);
+                $em->flush();
+
+                return $this->redirectToRoute('liste_utilisateur');
+            }
+
+        return $this->render('utilisateur/form.html.twig', [
+            'controller_name' => 'UtilisateurController',
+            'form' => $form
         ]);
     }
 
-    #[Route('/user/add', name:'add_user')]
-    public function ajout(Request $request): Response
+    #[Route('/add', name:'add_user')]
+    public function ajout(Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher  ): Response
     {
-        $data = json_decode($request->getContent(), true);
-
-        $nom = $data["nom"];
-        $prenom = $data["prenom"];
-        $age = $data["age"];
-        $roles = $data["roles"] ?? ["ROLE_USER"];
-        $passwd = $data["password"];
-
         $user = new User();
-
-        $user->setNom($nom);
-        $user->setPrenom($prenom);
-        $user->setAge($age);
-        $user->setRoles($roles);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            $passwd
-        );
-
-        $user->setPassword($hashedPassword);
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
-        ]);
+        return $this->form($user,$request, $em, $passwordHasher);
     }
 
-    #[Route('/user/update/{id}', name:'update_user')]
-    public function update(User $user, Request $request): Response
+    #[Route('/update/{id}', name:'update_user')]
+    public function update(User $user, Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher): Response
     {
-        $data = json_decode($request->getContent(), true);
-
-        $nom = $data["nom"];
-        $prenom = $data["prenom"];
-        $age = $data["age"];
-        $roles = $data["roles"] ?? ["ROLE_USER"];
-        $passwd = $data["password"];
-
-        $user->setNom($nom);
-        $user->setPrenom($prenom);
-        $user->setAge($age);
-        $user->setRoles($roles);
-
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            $passwd
-        );
-
-        $user->setPassword($hashedPassword);
-
-        $this->entityManager->flush();
-
-        return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
-        ]);
+        return $this->form($user,$request, $em, $passwordHasher);
     }
 }
