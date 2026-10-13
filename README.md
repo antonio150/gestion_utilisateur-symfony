@@ -45,7 +45,7 @@ Avant de lancer le projet, vérifiez que vous avez installé :
 1. Cloner le dépôt :
 
 ```bash
-git clone <url-du-repo>
+git clone https://github.com/antonio150/gestion_utilisateur-symfony.git
 cd app_new_symfony
 ```
 
