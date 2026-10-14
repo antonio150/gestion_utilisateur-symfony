@@ -91,6 +91,37 @@ Ou, sans Symfony CLI :
 php -S localhost:8000 -t public
 ```
 
+## Lancement avec Docker
+
+Prérequis : Docker Desktop (ou Docker Engine) avec Docker Compose.
+
+Depuis la racine du projet, construisez les images et démarrez les services :
+
+```bash
+docker compose up -d --build
+```
+
+Le projet utilise trois services : PHP 8.3-FPM, Nginx et MySQL 8.0. Le code est monté dans le conteneur PHP. Installez les dépendances puis appliquez les migrations :
+
+```bash
+docker compose exec php composer install
+docker compose exec php php bin/console doctrine:migrations:migrate
+```
+
+L'application est accessible à l'adresse suivante :
+
+```text
+http://localhost:8080/user/
+```
+
+Dans la configuration de l'application (`.env` ou `.env.local`), l'hôte de la base de données doit être `database` et son port `3306` (par exemple `database:3306/gestion_user`). Depuis votre machine, MySQL est exposé sur le port `3307`. Le conteneur est configuré avec une base `gestion_user` et un mot de passe root vide pour le développement local.
+
+Pour arrêter les services :
+
+```bash
+docker compose down
+```
+
 ## Accès à l'application
 
 Une fois le serveur démarré, ouvrez l'URL suivante :
