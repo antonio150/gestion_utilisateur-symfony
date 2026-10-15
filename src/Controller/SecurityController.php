@@ -9,9 +9,22 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    public function logged()
+    {
+         if ($this->getUser()) {
+
+            // Utilisateur connecté
+            return $this->redirectToRoute('liste_user');
+        }
+        return null;
+    }
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $response = $this->logged();
+        if($response){
+            return $response;
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

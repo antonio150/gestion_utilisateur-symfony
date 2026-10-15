@@ -1,0 +1,58 @@
+
+<aside class="sidebar">
+    <a href="{{ path('page_accueil') }}" class="brand">
+        <i class="bi bi-people-fill"></i>
+        UserFlow
+    </a>
+
+    <div class="nav-label">MENU PRINCIPAL</div>
+
+    <nav>
+        <a href="{{ path('page_accueil') }}"
+           class="nav-link {{ app.request.attributes.get('_route') == 'page_accueil' ? 'active' : '' }}">
+            <i class="bi bi-grid-1x2"></i>
+            <span class="nav-text">Tableau de bord</span>
+        </a>
+
+        <a href="{{ path('liste_user') }}"
+           class="nav-link {{ app.request.attributes.get('_route') == 'liste_user' ? 'active' : '' }}">
+            <i class="bi bi-people"></i>
+            <span class="nav-text">Utilisateurs</span>
+        </a>
+
+        <a href="{{ path('add_user') }}"
+           class="nav-link {{ app.request.attributes.get('_route') == 'add_user' ? 'active' : '' }}">
+            <i class="bi bi-person-plus"></i>
+            <span class="nav-text">Ajouter un utilisateur</span>
+        </a>
+
+        <div class="nav-label">GESTION</div>
+
+        <a href="#" class="nav-link future-action">
+            <i class="bi bi-shield-check"></i>
+            <span class="nav-text">Rôles et permissions</span>
+        </a>
+
+        <a href="#" class="nav-link future-action">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span class="nav-text">Statistiques</span>
+        </a>
+
+        <a href="#" class="nav-link future-action">
+            <i class="bi bi-gear"></i>
+            <span class="nav-text">Paramètres</span>
+        </a>
+    </nav>
+
+    <div class="nav-label">COMPTE</div>
+
+    <a href="#" class="nav-link future-action">
+        <i class="bi bi-person-circle"></i>
+        <span class="nav-text">Mon profil</span>
+    </a>
+
+    <a href="{{ path('app_logout') }}" class="nav-link">
+        <i class="bi bi-box-arrow-right"></i>
+        <span class="nav-text">Déconnexion</span>
+    </a>
+</aside>

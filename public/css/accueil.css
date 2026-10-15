@@ -1,0 +1,128 @@
+
+:root {
+    --primary: #5b5ce2;
+    --primary-dark: #4647c7;
+    --background: #f6f7fb;
+    --text: #20243a;
+    --muted: #858ba3;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 30px 38px;
+}
+
+.welcome-banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #5556dc, #8585ff);
+    color: white;
+    border-radius: 22px;
+    padding: 36px;
+    margin-bottom: 30px;
+    animation: slideUp .65s ease both;
+}
+
+.stat-card,
+.content-card {
+    background: white;
+    border: 1px solid #eff0f6;
+    border-radius: 18px;
+    padding: 23px;
+    height: 100%;
+}
+
+.stat-card {
+    transition: transform .25s, box-shadow .25s;
+    animation: slideUp .6s ease both;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(38, 43, 87, .08);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.purple { background: #eeeeff; color: #5b5ce2; }
+.green { background: #e4f8ed; color: #20a464; }
+.orange { background: #fff1df; color: #e99227; }
+.blue { background: #e5f3ff; color: #2786d9; }
+
+.stat-value {
+    font-size: 31px;
+    font-weight: 800;
+    margin: 7px 0;
+}
+
+.section-heading {
+    font-weight: 750;
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px;
+    border: 1px solid #eff0f6;
+    border-radius: 13px;
+    margin-bottom: 12px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all .25s;
+}
+
+.quick-action:hover {
+    border-color: #c8c8ff;
+    background: #fafaff;
+    transform: translateX(5px);
+    color: var(--primary);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 991px) {
+    .main-content {
+        margin-left: 75px;
+        padding: 24px 18px;
+    }
+}
+
+@media (max-width: 575px) {
+    .main-content {
+        padding: 18px 12px;
+    }
+
+    .welcome-banner {
+        padding: 25px 20px;
+    }
+
+    .stat-card {
+        padding: 17px;
+    }
+}

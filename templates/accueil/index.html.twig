@@ -1,0 +1,279 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | UserFlow{% endblock %}
+{% block stylesheets %}
+    {# {{ parent() }} #}
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+{% endblock %}
+{% block body %}
+
+
+{% include 'components/_sidebar.html.twig' %}
+
+{# Contenu principal #}
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <h5 class="fw-bold mb-1">Tableau de bord</h5>
+            <small class="text-secondary">Gérez votre espace en toute simplicité.</small>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <div class="search-box">
+                <i class="bi bi-search text-secondary me-2"></i>
+                <input type="search" id="dashboardSearch"
+                       placeholder="Rechercher une action...">
+            </div>
+
+            <button type="button" class="btn btn-white bg-white border rounded-3 p-2"
+                    title="Notifications">
+                <i class="bi bi-bell fs-5"></i>
+            </button>
+
+            <div class="profile-avatar">A</div>
+        </div>
+    </header>
+
+    {# Bannière de bienvenue #}
+    <section class="welcome-banner">
+        <div class="position-relative" style="z-index:1">
+            <span class="badge rounded-pill bg-light text-primary px-3 py-2 mb-3">
+                <i class="bi bi-stars me-1"></i> Espace d'administration
+            </span>
+
+            <h1>Bienvenue sur UserFlow ! 👋</h1>
+
+            <p class="mb-4">
+                Gérez vos utilisateurs, organisez vos comptes et
+                gardez le contrôle sur votre application depuis un seul endroit.
+            </p>
+
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ path('add_user') }}" class="btn btn-light-custom">
+                    <i class="bi bi-person-plus-fill me-2"></i>
+                    Nouvel utilisateur
+                </a>
+
+                <a href="{{ path('liste_user') }}"
+                   class="btn btn-outline-light rounded-3 px-3 py-2">
+                    Voir les utilisateurs
+                    <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {# Statistiques #}
+    <section class="mb-4">
+        <h5 class="section-heading">Vue d'ensemble</h5>
+
+        <div class="row g-3">
+            <div class="col-6 col-xl-3">
+                <div class="stat-card" style="animation-delay:.05s">
+                    <div class="stat-icon purple">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="stat-label">Total utilisateurs</div>
+                    <div class="stat-value" data-count="0">0</div>
+                    <small class="text-secondary">Comptes enregistrés</small>
+                </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+                <div class="stat-card" style="animation-delay:.12s">
+                    <div class="stat-icon green">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                    <div class="stat-label">Comptes actifs</div>
+                    <div class="stat-value" data-count="0">0</div>
+                    <small class="text-secondary">Statut à intégrer</small>
+                </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+                <div class="stat-card" style="animation-delay:.19s">
+                    <div class="stat-icon orange">
+                        <i class="bi bi-person-add"></i>
+                    </div>
+                    <div class="stat-label">Nouveaux comptes</div>
+                    <div class="stat-value" data-count="0">0</div>
+                    <small class="text-secondary">Cette semaine</small>
+                </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+                <div class="stat-card" style="animation-delay:.26s">
+                    <div class="stat-icon blue">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <div class="stat-label">Rôles disponibles</div>
+                    <div class="stat-value">--</div>
+                    <small class="text-secondary">À configurer</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Actions et activités #}
+    <div class="row g-4">
+
+        <div class="col-lg-6">
+            <section class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="section-heading mb-0">Actions rapides</h5>
+                    <i class="bi bi-lightning-charge text-warning fs-4"></i>
+                </div>
+
+                <div id="quickActions">
+                    <a href="{{ path('add_user') }}" class="quick-action">
+                        <div class="action-icon">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <strong>Créer un utilisateur</strong>
+                            <small>Ajouter un nouveau compte au système</small>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+
+                    <a href="{{ path('liste_user') }}" class="quick-action">
+                        <div class="action-icon">
+                            <i class="bi bi-card-list"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <strong>Liste des utilisateurs</strong>
+                            <small>Consulter et gérer les comptes existants</small>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+
+                    <a href="#" class="quick-action future-action">
+                        <div class="action-icon">
+                            <i class="bi bi-file-earmark-arrow-down"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <strong>Exporter les données</strong>
+                            <small>Préparer un export Excel ou CSV</small>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+
+                    <a href="#" class="quick-action future-action">
+                        <div class="action-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <strong>Gérer les permissions</strong>
+                            <small>Configurer les rôles et les accès</small>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-6">
+            <section class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="section-heading mb-0">Activité récente</h5>
+                    <span class="badge bg-light text-secondary">Aperçu</span>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-dot"></div>
+                    <div>
+                        <strong class="d-block">Bienvenue dans UserFlow</strong>
+                        <small class="text-secondary">
+                            Votre tableau de bord est prêt à être personnalisé.
+                        </small>
+                        <div class="activity-time mt-1">Maintenant</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-dot" style="background:#20a464"></div>
+                    <div>
+                        <strong class="d-block">Gestion des utilisateurs</strong>
+                        <small class="text-secondary">
+                            Accédez à la liste pour consulter les comptes.
+                        </small>
+                        <div class="activity-time mt-1">Action disponible</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-dot" style="background:#e99227"></div>
+                    <div>
+                        <strong class="d-block">Historique des opérations</strong>
+                        <small class="text-secondary">
+                            Le journal sera connecté à la base de données plus tard.
+                        </small>
+                        <div class="activity-time mt-1">À développer</div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 rounded-4" style="background:#f5f5ff">
+                    <div class="d-flex gap-3 align-items-center">
+                        <i class="bi bi-lightbulb fs-3 text-primary"></i>
+                        <div>
+                            <strong>Astuce</strong>
+                            <p class="text-secondary small mb-0 mt-1">
+                                Commencez par ajouter des utilisateurs,
+                                puis connectez les statistiques à votre base de données.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © {{ "now"|date("Y") }} UserFlow · Gestion simplifiée des utilisateurs
+    </footer>
+</main>
+
+{# Notifications pour les boutons qui seront développés plus tard #}
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="futureToast" class="toast border-0 shadow" role="status"
+         aria-live="polite" aria-atomic="true">
+        <div class="toast-header">
+            <i class="bi bi-info-circle-fill text-primary me-2"></i>
+            <strong class="me-auto">UserFlow</strong>
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="toast" aria-label="Fermer"></button>
+        </div>
+        <div class="toast-body">
+            Cette fonctionnalité sera disponible prochainement.
+        </div>
+    </div>
+</div>
+
+<script>
+    // Notification des fonctionnalités à développer
+    document.querySelectorAll('.future-action').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            bootstrap.Toast.getOrCreateInstance(
+                document.getElementById('futureToast')
+            ).show();
+        });
+    });
+
+    // Recherche des actions rapides
+    const searchInput = document.getElementById('dashboardSearch');
+
+    searchInput.addEventListener('input', function () {
+        const query = this.value.trim().toLocaleLowerCase();
+
+        document.querySelectorAll('#quickActions .quick-action')
+            .forEach(function (action) {
+                action.hidden = !action.textContent
+                    .toLocaleLowerCase().includes(query);
+            });
+    });
+</script>
+{% endblock %}
