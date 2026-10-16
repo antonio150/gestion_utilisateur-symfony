@@ -3,6 +3,7 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
+{% include 'components/_sidebar.html.twig' %}
     <div class="container py-5">
 
         {# En-tête #}
@@ -18,11 +19,6 @@
                 </p>
             </div>
 
-            <a href="{{ path('add_user') }}"
-               class="btn btn-primary">
-                <i class="bi bi-plus-circle me-1"></i>
-                Ajouter un utilisateur
-            </a>
         </div>
 
         {# Tableau des utilisateurs #}
@@ -34,13 +30,13 @@
 
                         <thead class="table-dark">
                             <tr>
-                                <th class="px-3">ID</th>
+                               
                                 <th>Nom</th>
                                 <th>Prénom</th>
                                 <th>Âge</th>
                                 <th>Email</th>
                                 <th>Rôles</th>
-                                <th>Date de création</th>
+                             
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -49,10 +45,7 @@
                            
                             {% for user in users %}
                                 <tr>
-                                    <td class="px-3 fw-semibold">
-                                        {{ user.id }}
-                                    </td>
-
+                                  
                                     <td>{{ user.nom }}</td>
 
                                     <td>{{ user.prenom }}</td>
@@ -87,11 +80,6 @@
                                         {% endfor %}
                                     </td>
 
-                                    <td class="text-nowrap">
-                                        {{ user.createdAt
-                                            ? user.createdAt|date('d/m/Y H:i')
-                                            : '-' }}
-                                    </td>
 
                                     <td class="text-center text-nowrap">
                                         <a href="{{ path('update_user', {

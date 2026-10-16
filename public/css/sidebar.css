@@ -9,6 +9,37 @@
     padding: 28px 18px;
     border-right: 1px solid #eceef5;
     z-index: 1000;
+    transition: width .25s ease;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 29px;
+}
+
+.sidebar-toggle {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #777e96;
+    cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+    background: #eeeeff;
+    color: #5b5ce2;
+}
+
+.toggle-icon {
+    font-size: 25px;
+    line-height: 1;
 }
 
 .brand {
@@ -26,6 +57,11 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     margin: 35px 12px 12px;
+}
+
+.sidebar .brand-text,
+.sidebar .nav-text {
+    white-space: nowrap;
 }
 
 .sidebar .nav-link {
@@ -52,6 +88,37 @@
     font-size: 19px;
 }
 
+.sidebar.is-collapsed {
+    width: 75px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.sidebar.is-collapsed .sidebar-header {
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar.is-collapsed .brand {
+    padding: 0;
+    font-size: 0;
+}
+
+.sidebar.is-collapsed .brand i {
+    font-size: 27px;
+}
+
+.sidebar.is-collapsed .nav-label,
+.sidebar.is-collapsed .nav-text {
+    display: none;
+}
+
+.sidebar.is-collapsed .nav-link {
+    justify-content: center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
 @media (max-width: 991px) {
     .sidebar {
         width: 75px;
@@ -76,5 +143,39 @@
     .sidebar .nav-link {
         justify-content: center;
         padding: 14px 5px;
+    }
+
+    .sidebar:not(.is-collapsed) {
+        width: 250px;
+        padding: 25px 18px;
+        box-shadow: 4px 0 18px rgba(32, 36, 58, .12);
+    }
+
+    .sidebar:not(.is-collapsed) .sidebar-header {
+        flex-direction: row;
+        gap: 0;
+    }
+
+    .sidebar:not(.is-collapsed) .brand {
+        font-size: 24px;
+        text-align: left;
+        padding: 0 12px;
+    }
+
+    .sidebar:not(.is-collapsed) .brand i {
+        font-size: inherit;
+    }
+
+    .sidebar:not(.is-collapsed) .nav-text {
+        display: inline;
+    }
+
+    .sidebar:not(.is-collapsed) .nav-label {
+        display: block;
+    }
+
+    .sidebar:not(.is-collapsed) .nav-link {
+        justify-content: flex-start;
+        padding: 13px 14px;
     }
 }

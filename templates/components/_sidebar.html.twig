@@ -1,9 +1,14 @@
 
 <aside class="sidebar">
-    <a href="{{ path('page_accueil') }}" class="brand">
-        <i class="bi bi-people-fill"></i>
-        UserFlow
-    </a>
+    <div class="sidebar-header">
+        <a href="{{ path('page_accueil') }}" class="brand">
+            <i class="bi bi-people-fill"></i>
+            <span class="brand-text">UserFlow</span>
+        </a>
+        <button type="button" class="sidebar-toggle" aria-label="Réduire la barre latérale" title="Réduire la barre latérale" aria-expanded="true">
+            <span class="toggle-icon" aria-hidden="true">‹</span>
+        </button>
+    </div>
 
     <div class="nav-label">MENU PRINCIPAL</div>
 
