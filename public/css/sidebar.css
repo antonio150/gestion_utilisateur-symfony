@@ -12,6 +12,18 @@
     transition: width .25s ease;
 }
 
+.page-content {
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    margin-left: 250px;
+    transition: width .25s ease, margin-left .25s ease;
+}
+
+body.sidebar-collapsed .page-content {
+    width: calc(100% - 75px);
+    margin-left: 75px;
+}
+
 .sidebar-header {
     display: flex;
     align-items: center;
@@ -145,6 +157,11 @@
         padding: 14px 5px;
     }
 
+    .page-content {
+        width: calc(100% - 75px);
+        margin-left: 75px;
+    }
+
     .sidebar:not(.is-collapsed) {
         width: 250px;
         padding: 25px 18px;
@@ -177,5 +194,10 @@
     .sidebar:not(.is-collapsed) .nav-link {
         justify-content: flex-start;
         padding: 13px 14px;
+    }
+
+    body:not(.sidebar-collapsed) .page-content {
+        width: calc(100% - 250px);
+        margin-left: 250px;
     }
 }

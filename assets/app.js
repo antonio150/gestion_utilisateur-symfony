@@ -7,36 +7,40 @@ import './stimulus_bootstrap.js';
  */
 import './styles/app.css';
 
-const sidebar = document.querySelector('.sidebar');
-const sidebarToggle = document.querySelector('.sidebar-toggle');
+let isSidebarCollapsed = window.matchMedia('(max-width: 991px)').matches;
 
-if (sidebar && sidebarToggle) {
-	const isMobile = window.matchMedia('(max-width: 991px)').matches;
+const updateSidebarState = () => {
+	const sidebar = document.querySelector('.sidebar');
+	const sidebarToggle = document.querySelector('.sidebar-toggle');
 
-	if (isMobile) {
-		sidebar.classList.add('is-collapsed');
+	if (!sidebar || !sidebarToggle) {
+		return;
 	}
 
-	const updateSidebarState = (isCollapsed) => {
-		document.body.classList.toggle('sidebar-collapsed', isCollapsed);
-		sidebarToggle.setAttribute('aria-expanded', String(!isCollapsed));
-		sidebarToggle.setAttribute(
-			'aria-label',
-			isCollapsed ? 'Agrandir la barre latérale' : 'Réduire la barre latérale'
-		);
-		sidebarToggle.setAttribute(
-			'title',
-			isCollapsed ? 'Agrandir la barre latérale' : 'Réduire la barre latérale'
-		);
-		sidebarToggle.querySelector('.toggle-icon').textContent = isCollapsed ? '›' : '‹';
-	};
+	sidebar.classList.toggle('is-collapsed', isSidebarCollapsed);
+	document.body.classList.toggle('sidebar-collapsed', isSidebarCollapsed);
+	sidebarToggle.setAttribute('aria-expanded', String(!isSidebarCollapsed));
+	sidebarToggle.setAttribute(
+		'aria-label',
+		isSidebarCollapsed ? 'Agrandir la barre latérale' : 'Réduire la barre latérale'
+	);
+	sidebarToggle.setAttribute(
+		'title',
+		isSidebarCollapsed ? 'Agrandir la barre latérale' : 'Réduire la barre latérale'
+	);
+	sidebarToggle.querySelector('.toggle-icon').textContent = isSidebarCollapsed ? '›' : '‹';
+};
 
-	updateSidebarState(sidebar.classList.contains('is-collapsed'));
+document.addEventListener('click', (event) => {
+	if (!event.target.closest('.sidebar-toggle')) {
+		return;
+	}
 
-	sidebarToggle.addEventListener('click', () => {
-		const isCollapsed = sidebar.classList.toggle('is-collapsed');
-		updateSidebarState(isCollapsed);
-	});
-}
+	isSidebarCollapsed = !isSidebarCollapsed;
+	updateSidebarState();
+});
+
+document.addEventListener('turbo:load', updateSidebarState);
+updateSidebarState();
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

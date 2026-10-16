@@ -63,7 +63,8 @@ final class UserController extends AbstractController
         User $user,
         Request $request,
         EntityManagerInterface $em,
-        UserPasswordHasherInterface $passwordHasher): Response
+        UserPasswordHasherInterface $passwordHasher,
+        $action): Response
     {
         $isCreation = $user->getId() === null;
         $form = $this->createForm(UserType::class, $user, [
@@ -91,7 +92,8 @@ final class UserController extends AbstractController
 
         return $this->render('utilisateur/form.html.twig', [
             'controller_name' => 'UtilisateurController',
-            'form' => $form
+            'form' => $form,
+            'action' => $action,
         ]);
     }
 
@@ -99,7 +101,8 @@ final class UserController extends AbstractController
     public function ajout(Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher  ): Response
     {
         $user = new User();
-        return $this->form($user,$request, $em, $passwordHasher);
+        $action = "add";
+        return $this->form($user,$request, $em, $passwordHasher, $action);
     }
 
     #[Route('/update/{id}', name:'update_user')]
@@ -109,7 +112,8 @@ final class UserController extends AbstractController
         if($response){
             return $response;
         }
-        return $this->form($user,$request, $em, $passwordHasher);
+        $action = "update";
+        return $this->form($user,$request, $em, $passwordHasher, $action);
     }
 
     #[Route('/delete/{id}', name:'delete_user', methods:['DELETE','GET'])]

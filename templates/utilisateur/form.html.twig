@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un utilisateur{% endblock %}
+{% block title %}
+ {% if action == 'add' %}
+    Créer un utilisateur
+ {% elseif action == 'update' %}
+    Modifier un utilisateur
+ {% endif %}
+{% endblock %}
 
 {% block body %}
 {% include 'components/_sidebar.html.twig' %}
+    <main class="page-content">
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
@@ -11,7 +18,11 @@
                 <div class="card shadow border-0">
                     <div class="card-header bg-primary text-white py-3">
                         <h1 class="h4 mb-0">
+                            {% if action == 'add' %}
                             Créer un utilisateur
+                            {% elseif action == 'update' %}
+                            Modifier un utilisateur
+                            {% endif %}
                         </h1>
                     </div>
 
@@ -116,4 +127,5 @@
             </div>
         </div>
     </div>
+    </main>
 {% endblock %}

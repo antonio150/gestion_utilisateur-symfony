@@ -14,13 +14,7 @@ body {
 }
 
 .main-content {
-    margin-left: 250px;
     padding: 30px 38px;
-    transition: margin-left .25s ease;
-}
-
-body.sidebar-collapsed .main-content {
-    margin-left: 75px;
 }
 
 .welcome-banner {
@@ -113,7 +107,6 @@ body.sidebar-collapsed .main-content {
 
 @media (max-width: 991px) {
     .main-content {
-        margin-left: 75px;
         padding: 24px 18px;
     }
 }
